@@ -19,6 +19,9 @@ class MemberService(
         // 1. 회원 등록
         val savedMember = register(registerMemberRequestData)
 
+        // error: db 에러
+        savedMember.updateNickname("123456789012345678901234567890")
+
         // 2. 가입 축하 메일 발송 (메일 발송 기록은 db에 저장)
         mailService.sendSuccessRegisteredMemberMail(savedMember.id, savedMember.email)
 
