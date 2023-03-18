@@ -14,7 +14,7 @@ class MailService(
     private val emailSendHistoryRepository: EmailSendHistoryRepository
 ) {
 
-    fun sendSuccessRegisteredMemberMail(memberId: Long?, emailAddress: String) {
+    fun sendSuccessRegisteredMemberMail(memberId: Long?, emailAddress: String?) {
         val successRegisteredMember = SuccessRegisteredMemberMessageGenerator.generate(memberId!!)
         emailSender.send(successRegisteredMember, emailAddress)
 
