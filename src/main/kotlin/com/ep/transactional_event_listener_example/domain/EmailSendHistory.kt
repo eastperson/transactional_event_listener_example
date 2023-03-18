@@ -11,8 +11,8 @@ import java.time.LocalDateTime
 class EmailSendHistory(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    val sendAt: LocalDateTime,
-    val message: String,
-    val targetId: Long,
-    val type: EmailType
+    val sendAt: LocalDateTime? = null,
+    val message: String? = null,
+    val targetId: Long? = null,
+    val type: EmailType? = null
 )

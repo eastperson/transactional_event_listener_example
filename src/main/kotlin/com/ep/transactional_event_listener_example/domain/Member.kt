@@ -9,6 +9,6 @@ import jakarta.persistence.Id
 class Member(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    val nickname: String,
-    val email: String
+    val nickname: String? = null,
+    val email: String? = null
 )
