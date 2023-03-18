@@ -20,7 +20,11 @@ class MemberService(
         val savedMember = register(registerMemberRequestData)
 
         // 2. 가입 축하 메일 발송 (메일 발송 기록은 db에 저장)
-        mailService.sendSuccessRegisteredMemberMail(savedMember.id, savedMember.email)
+        try {
+            mailService.sendSuccessRegisteredMemberMail(savedMember.id, savedMember.email)
+        } catch (e: RuntimeException) {
+            println("catch runtime exception")
+        }
 
         return RegisterMemberResponseData(memberId = savedMember.id!!)
     }

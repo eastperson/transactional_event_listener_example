@@ -25,5 +25,6 @@ class MailService(
             type = EmailType.MEMBER_REGISTER_SUCESS
         )
         emailSendHistoryRepository.save(emailSendHistory)
+        throw RuntimeException("send email exception")
     }
 }

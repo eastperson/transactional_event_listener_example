@@ -1,5 +1,7 @@
 package com.ep.transactional_event_listener_example
 
+import com.ep.transactional_event_listener_example.repository.EmailSendHistoryRepository
+import com.ep.transactional_event_listener_example.repository.MemberRepository
 import com.ep.transactional_event_listener_example.service.MemberService
 import com.ep.transactional_event_listener_example.service.data.RegisterMemberRequestData
 import org.assertj.core.api.Assertions.assertThat
@@ -62,10 +64,22 @@ class TransactionalEventListenerExampleTest {
     @Autowired
     private lateinit var memberService: MemberService
 
+    @Autowired
+    private lateinit var memberRepository: MemberRepository
+
+    @Autowired
+    private lateinit var emailSendHistoryRepository: EmailSendHistoryRepository
+
     @Test
     fun `case 1 - 기본 예제`() {
         val memberRequestData = RegisterMemberRequestData(nickname = "ep", email = "ep@email.com")
         val response = memberService.registerProcess(memberRequestData)
         assertThat(response).isNotNull
+
+        val newMember = memberRepository.findById(response.memberId)
+        val newEventSendHistory = emailSendHistoryRepository.findById(1L)
+
+        assertThat(newMember).isNotNull
+        assertThat(newEventSendHistory).isNotNull
     }
 }
