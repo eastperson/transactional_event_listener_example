@@ -11,6 +11,10 @@ class Member(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     @Column(columnDefinition = "varchar(20)")
-    val nickname: String? = null,
+    var nickname: String? = null,
     val email: String? = null
-)
+) {
+    fun updateNickname(newNickname: String?) {
+        this.nickname = newNickname
+    }
+}

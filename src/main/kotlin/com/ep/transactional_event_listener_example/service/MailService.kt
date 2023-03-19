@@ -15,7 +15,6 @@ class MailService(
     private val emailSendHistoryRepository: EmailSendHistoryRepository
 ) {
 
-    @Async
     fun sendSuccessRegisteredMemberMail(memberId: Long?, emailAddress: String?) {
         val successRegisteredMember = SuccessRegisteredMemberMessageGenerator.generate(memberId!!)
         emailSender.send(successRegisteredMember, emailAddress)
@@ -27,6 +26,5 @@ class MailService(
             type = EmailType.MEMBER_REGISTER_SUCESS
         )
         emailSendHistoryRepository.save(emailSendHistory)
-        throw RuntimeException("send mail exception")
     }
 }

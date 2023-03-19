@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component
 @Component
 class EmailSender {
     fun send(successRegisteredMember: EmailMessage, emailAddress: String?) {
-
+        println("mail send success")
     }
 }
