@@ -3,6 +3,7 @@ package com.ep.transactional_event_listener_example.service
 import com.ep.transactional_event_listener_example.domain.EmailSendHistory
 import com.ep.transactional_event_listener_example.domain.enums.EmailType
 import com.ep.transactional_event_listener_example.repository.EmailSendHistoryRepository
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -14,6 +15,7 @@ class MailService(
     private val emailSendHistoryRepository: EmailSendHistoryRepository
 ) {
 
+    @Async
     fun sendSuccessRegisteredMemberMail(memberId: Long?, emailAddress: String?) {
         val successRegisteredMember = SuccessRegisteredMemberMessageGenerator.generate(memberId!!)
         emailSender.send(successRegisteredMember, emailAddress)
@@ -25,5 +27,6 @@ class MailService(
             type = EmailType.MEMBER_REGISTER_SUCESS
         )
         emailSendHistoryRepository.save(emailSendHistory)
+        throw RuntimeException("send mail exception")
     }
 }

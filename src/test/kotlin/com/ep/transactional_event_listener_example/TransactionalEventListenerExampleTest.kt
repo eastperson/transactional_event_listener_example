@@ -7,6 +7,7 @@ import org.junit.ClassRule
 import org.junit.Test
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.assertThrows
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -65,7 +66,10 @@ class TransactionalEventListenerExampleTest {
     @Test
     fun `case 1 - 기본 예제`() {
         val memberRequestData = RegisterMemberRequestData(nickname = "ep", email = "ep@email.com")
-        val response = memberService.registerProcess(memberRequestData)
-        assertThat(response).isNotNull
+        assertThrows<RuntimeException> {
+            val response = memberService.registerProcess(memberRequestData)
+            assertThat(response).isNotNull
+            assertThat(response.memberId).isEqualTo(1L)
+        }
     }
 }
