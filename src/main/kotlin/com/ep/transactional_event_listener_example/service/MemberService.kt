@@ -21,12 +21,12 @@ class MemberService(
         // 1. 회원 등록
         val savedMember = register(registerMemberRequestData)
 
-        // error: db 에러
-        // savedMember.updateNickname("123456789012345678901234567890")
-
         // 2. 회원 등록 이벤트 발행
         val registeredMemberEvent = RegisteredMemberEvent(savedMember.id!!, savedMember.email!!)
         applicationEventPublisher.publishEvent(registeredMemberEvent)
+
+        savedMember.updateNickname("수정")
+        memberRepository.save(savedMember)
 
         return RegisterMemberResponseData(memberId = savedMember.id)
     }

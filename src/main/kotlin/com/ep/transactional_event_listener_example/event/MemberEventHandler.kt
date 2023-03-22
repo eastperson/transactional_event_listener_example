@@ -7,7 +7,7 @@ import org.springframework.transaction.event.TransactionPhase
 import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
-class RegisteredMemberEventHandler(
+class MemberEventHandler(
     private val mailService: MailService
 ) {
 
@@ -15,5 +15,11 @@ class RegisteredMemberEventHandler(
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     fun sendSuccessMail(registeredMemberEvent: RegisteredMemberEvent) {
         mailService.sendSuccessRegisteredMemberMail(registeredMemberEvent.memberId, registeredMemberEvent.email)
+    }
+
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    fun updateMember(updateMemberEvent: UpdateMemberEvent) {
+        println("memberId: ${updateMemberEvent.memberId} nickname: ${updateMemberEvent.nickname}")
     }
 }
