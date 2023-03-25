@@ -5,5 +5,5 @@
 ## 브랜치별 예제 코드 분리
 [case 1: transaction](https://github.com/eastperson/transactional_event_listener_example/tree/case1-transaction)<br/>
 [case 2: async](https://github.com/eastperson/transactional_event_listener_example/tree/case2-async)<br/>
-[case 3: event]()<br/>
-[case 4: transactional event listener]()<br/>
+[case 3: event](https://github.com/eastperson/transactional_event_listener_example/tree/case3-event)<br/>
+[case 4: transactional event listener](https://github.com/eastperson/transactional_event_listener_example/tree/case4-trasaction-event-listener)<br/>
