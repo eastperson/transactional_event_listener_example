@@ -25,8 +25,7 @@ class MemberService(
         val registeredMemberEvent = RegisteredMemberEvent(savedMember.id!!, savedMember.email!!)
         applicationEventPublisher.publishEvent(registeredMemberEvent)
 
-        savedMember.updateNickname("수정")
-        memberRepository.save(savedMember)
+        updateNickname(savedMember.id)
 
         return RegisterMemberResponseData(memberId = savedMember.id)
     }
@@ -34,5 +33,11 @@ class MemberService(
     private fun register(requestData: RegisterMemberRequestData): Member {
         val newMember = Member(nickname = requestData.nickname, email = requestData.email)
         return memberRepository.save(newMember)
+    }
+
+    fun updateNickname(memberId: Long) {
+        val member = memberRepository.findById(memberId).orElseThrow()
+        member.updateNickname("수정")
+        memberRepository.save(member)
     }
 }
